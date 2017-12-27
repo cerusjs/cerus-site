@@ -1,0 +1,35 @@
+<div class="sidebar closed">
+	<div class="header">
+		<div class="logo">
+			<img src="/assets/gfx/logo.png" onclick="sidebar().index()">
+		</div>
+	</div>
+	<div class="links">
+		<%_ sidebar.forEach(x => { _%>
+		<%_ var opened = x.name === module _%>
+		<div id="<%- x.name %>-item" class="item <%- opened ? 'opened' : 'closed' %>">
+			<div class="item-title" onclick="sidebar().item('<%- x.name %>')">
+				<%- x.name _%>
+				<i class="fas fa-<%- opened ? 'minus' : 'plus' %>"></i>
+			</div>
+			<ul class="item-links">
+			<%_ if(x.readme) { _%>
+				<li><a class= "<%- selected === 'readme' ?  'selected' : '' %>" href="<%- '/views/' + x.name + '/readme.html' %>">Readme</a></li>
+			<%_ } _%>
+			<%_ if(x.changelog) { _%>
+				<li><a class= "<%- selected === 'changelog' ?  'selected' : '' %>" href="<%- '/views/' + x.name + '/changelog.html' %>">Changelog</a></li>
+			<%_ } _%>
+			<%_ if(x.tutorials) { _%>
+				<li><a class= "<%- selected === 'tutorials' ?  'selected' : '' %>" href="<%- '/views/' + x.name + '/tutorials.html' %>">Tutorials</a></li>
+			<%_ } _%>
+			<%_ if(x.reference) { _%>
+				<li><a class= "<%- selected === 'reference' ?  'selected' : '' %>" href="<%- '/views/' + x.name + '/reference.html' %>">Reference</a></li>
+			<%_ } _%>
+			<%_ if(x.tests) { _%>
+				<li><a class= "<%- selected === 'tests' ?  'selected' : '' %>" href="<%- '/views/' + x.name + '/tests.html' %>">Tests</a></li>
+			<%_ } _%>
+			</ul>
+		</div>
+		<%_ }); _%>
+	</div>
+</div>

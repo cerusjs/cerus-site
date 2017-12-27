@@ -1,0 +1,16 @@
+<div class="title">
+	<div class="left">
+		<div class="item" onclick="sidebar().toggle()"><i class="fas fa-bars"></i></div>
+	</div>
+	<div class="right">
+		<% if(typeof list !== "undefined") { _%>
+		<select class="list" onchange="title_('<%- list.type %>', '<%- list.module %>').open(this)">
+			<% list.items.forEach(x => { _%>
+			<option value="<%- x.file %>" <%- list.value === x.file ? 'selected' : 'undefined' _%>><%- x.name %></option>
+			<% }); _%>
+		</select>
+		<% } _%>
+		<div class="item" onclick="title_().github()"><i class="fab fa-github"></i></div>
+		<div class="item" onclick="title_().mail()"><i class="fas fa-at"></i></div>
+	</div>
+</div>
