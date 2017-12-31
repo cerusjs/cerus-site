@@ -527,6 +527,10 @@ body {
 						flex-shrink: 0;
 						background: $tertiary-color;
 						color: #abb2bf;
+
+						-moz-tab-size: 4;
+						-o-tab-size:   4;
+						tab-size:      4;
 					}
 
 					&.selected {

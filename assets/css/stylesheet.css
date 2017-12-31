@@ -331,7 +331,10 @@ body {
           width: 100%;
           flex-shrink: 0;
           background: #111621;
-          color: #abb2bf; }
+          color: #abb2bf;
+          -moz-tab-size: 4;
+          -o-tab-size: 4;
+          tab-size: 4; }
         .content .inner .source .lines .line.selected .content {
           background: #222939; }
     @media screen and (max-width: 1080px) {
