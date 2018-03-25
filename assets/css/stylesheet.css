@@ -67,7 +67,6 @@ body {
           cursor: pointer; }
   .sidebar .links .item {
     padding: 25px 0;
-    border-top: 1px solid #566075;
     transition: 0.3s all; }
     .sidebar .links .item .item-title {
       -webkit-user-select: none;
@@ -121,12 +120,10 @@ body {
     .sidebar .links .item.opened {
       background: #111621; }
       .sidebar .links .item.opened .item-links {
-        max-height: 500px;
+        max-height: 100px;
         border: none; }
     .sidebar .links .item.closed .item-links {
       max-height: 0; }
-    .sidebar .links .item:last-child {
-      border-bottom: 1px solid #566075; }
 
 .content {
   transition: 0.5s all;

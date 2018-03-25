@@ -110,7 +110,6 @@ body {
 	.links {
 		.item {
 			padding: 25px 0;
-			border-top: 1px solid $tertiary-text;
 			transition: 0.3s all;
 
 			.item-title {
@@ -175,7 +174,7 @@ body {
 				background: $tertiary-color;
 
 				.item-links {
-					max-height: 500px;
+					max-height: 100px;
 					border: none;
 				}
 			}
@@ -184,10 +183,6 @@ body {
 				.item-links {
 					max-height: 0;
 				}
-			}
-
-			&:last-child {
-				border-bottom: 1px solid $tertiary-text;
 			}
 		}
 	} 
