@@ -3,7 +3,11 @@
 	<div class="class">
 		<h1><%- data.name %></h1>
 		<div class="name<% if(data.deprecated) { %><%- ' deprecated' %><% } %>">
-			<%- "." + data.name + "(" + data.params.filter(y => !y.child).map(y => y.name).join(", ") + ")" %>
+			<% if(data.nofunction) { _%>
+				<%- (data.name.indexOf(".") >= 0) ? data.name.substring(0, data.name.indexOf(".")) + "." + data.name.substring(data.name.indexOf(".") + 1, data.name.length).replace(/\./g, "().") + "(" + data.params.filter(y => !y.child).map(y => y.name).join(", ") + ")" : data.name %>
+			<% } else { _%>
+				<%- "." + data.name.replace(/\./g, "().") + "(" + data.params.filter(y => !y.child).map(y => y.name).join(", ") + ")" %>
+			<% } _%>
 		</div>
 		<div class="list">
 			<div class="item">
