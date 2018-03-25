@@ -146,7 +146,7 @@
 					<div class="col a4">
 						<a href="<%- '/views/' + data.module + '/reference/' + data.file + '#' + x.name %>"><%- x.name %></a>
 					</div>
-					<div class="col a8"><%- x.description %></div>
+					<div class="col a8"><%- x.summary || x.description %></div>
 				</div>
 			<% }); _%>
 		</div>
@@ -156,7 +156,7 @@
 	<div class="functions">
 		<h2>Functions</h2>
 		<% data.functions.forEach(x => { _%>
-			<div class="function">
+			<div id="<%- x.name %>" class="function">
 				<div class="name<% if(x.deprecated) { %><%- ' deprecated' %><% } %>">
 					<%- "." + x.name + "(" + x.params.filter(y => !y.child).map(y => y.name).join(", ") + ")" %>
 				</div>
