@@ -60,13 +60,12 @@ body {
 	}
 
 	&.closed {
-		left: -($sidebar-width);
+		left: -($sidebar-width) - 2;
 	}
 
 	&::-webkit-scrollbar {
 		width: 7px;
 		position: relative;
-		right: 1px;
 	}
 
 	&::-webkit-scrollbar-thumb {
@@ -81,7 +80,7 @@ body {
 		width: ($sidebar-width - 50px);
 
 		&.closed {
-			left: -($sidebar-width - 50px);
+			left: -($sidebar-width) - 52;
 		}
 	}
 
@@ -321,12 +320,13 @@ body {
 			}
 
 			.name {
-				line-height: 18px;
+				line-height: 22px;
 				padding: 12px 24px;
-				font-size: 16px;
+				font-size: 20px;
 				font-family: monospace;
 				color: $secondary-text;
 				background: $tertiary-color;
+				margin-top: 32px;
 
 				&.deprecated {
 					background: #FFAB00;
@@ -339,6 +339,10 @@ body {
 						right: 14px;
 						top: 8px;
 					}
+				}
+
+				@media screen and (max-width: 480px) {
+					font-size: 16px;
 				}
 			}
 
@@ -591,13 +595,13 @@ body {
 		border: none;
 		border-bottom: 2px solid $tertiary-color;
 		color: $tertiary-color;
-		padding: 3px 0;
-		height: 26px;
+		padding: 3px 0 6px 0; 
+		height: 29px;
 		font-size: 13px;
 		font-family: "Open Sans";
 		cursor: pointer;
 		position: relative;
-		top: -4px;
+		top: -5px;
 
 		&:focus {
 			outline: none;
@@ -605,6 +609,10 @@ body {
 
 		@media screen and (max-width: 480px) {
 			max-width: 140px;
+		}
+
+		@media screen and (max-width: 380px) {
+			max-width: 120px;
 		}
 	}
 
