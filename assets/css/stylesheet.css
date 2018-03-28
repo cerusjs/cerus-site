@@ -14,7 +14,7 @@ body {
   .overlay.closed {
     background: rgba(0, 0, 0, 0); }
   .overlay.opened {
-    background: rgba(0, 0, 0, 0.5); }
+    background: rgba(0, 0, 0, 0.7); }
   @media screen and (min-width: 720px) {
     .overlay {
       display: none; } }
