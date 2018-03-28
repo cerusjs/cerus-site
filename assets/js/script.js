@@ -93,6 +93,64 @@ var source = function() {
 	line.className = "line selected";
 }
 
+var scroll = function() {
+
+}
+
+class scrollHelper {
+	constructor() {
+		this._element = document.getElementById("scrollTop");
+
+		this._element.addEventListener("click", function() {
+			this.scroll(0, 0);
+		}.bind(this));
+
+		window.addEventListener("scroll", function() {
+			this.show();
+		}.bind(this));
+	}
+
+	scroll(x, y) {
+		assert("x", x, "number");
+		assert("y", y, "number");
+
+		window.scrollTo(x, y);
+	}
+
+	show() {
+		if(window.innerWidth >= 1080) {
+			return;
+		}
+
+		if(this._timeout) {
+			clearTimeout(this._timeout);
+		}
+
+		if(window.scrollY <= 100) {
+			this.hide();
+
+			return;
+		}
+
+		this._element.className = "scroll visible";
+
+		this._timeout = setTimeout(function() {
+			this.hide();
+		}.bind(this), 1500);
+	}
+
+	hide() {
+		this._timeout = undefined;
+		this._element.className = "scroll";
+	}
+}
+
+var assert = function(name, value, expected) {
+	if(typeof value !== expected) {
+		throw new TypeError("the argument " + name + " must be a " + expected);
+	}
+}
+
 if(window.innerWidth >= 1080) {
 	sidebar().toggle();
 }
@@ -100,3 +158,5 @@ if(window.innerWidth >= 1080) {
 if(document.location.pathname.split("/")[3] === "source") {
 	source();
 }
+
+new scrollHelper();
