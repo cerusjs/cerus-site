@@ -35,7 +35,7 @@ body {
 	}
 
 	&.opened {
-		background: rgba(0, 0, 0, 0.5)
+		background: rgba(0, 0, 0, 0.7)
 	}
 
 	@media screen and (min-width: 720px) {
@@ -73,7 +73,7 @@ body {
 	}
 
 	&::-webkit-scrollbar-track {
-		background: rgba(0,0,0,0)
+		background: rgba(0, 0, 0, 0)
 	}
 
 	@media screen and (max-width: 480px) {
