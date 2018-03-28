@@ -254,7 +254,7 @@ body {
 
 	.inner {
 		font-family: "Open Sans";
-		margin: 5px 50px 0;
+		margin: 32px 50px 0; 
 		font-size: 15px;
 
 		code {
@@ -263,7 +263,7 @@ body {
 		}
 
 		pre {
-			margin: 0;
+			margin: 0 0 15px 0;
 		}
 
 		.table {
@@ -378,7 +378,6 @@ body {
 				font-family: monospace;
 				color: $secondary-text;
 				background: $tertiary-color;
-				margin-top: 32px;
 
 				&.deprecated {
 					background: #FFAB00;
@@ -594,11 +593,20 @@ body {
 		}
 
 		@media screen and (max-width: 1080px) {
-			margin: 5px 25px 0;
+			margin: 25px 25px 0;
+
+			.class, .summary {
+				margin-bottom: 32px;
+			}
+
+			.functions .function {
+				margin-bottom: 32px;
+				padding-bottom: 32px;
+			}
 		}
 
 		@media screen and (max-width: 480px) {
-			margin: 5px 10px 0;
+			margin: 20px 15px 0;
 		}
 	}
 
