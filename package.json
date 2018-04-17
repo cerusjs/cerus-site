@@ -1,0 +1,24 @@
+{
+	"name": "cerus-site",
+	"version": "0.0.1",
+	"description": "The site generator for CerusJS",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/cerusjs/cerus-site.git"
+	},
+	"author": "cerusjs",
+	"bugs": {
+		"url": "https://github.com/cerusjs/cerus-site/issues"
+	},
+	"scripts": {},
+	"homepage": "https://github.com/cerusjs/cerus-site",
+	"dependencies": {
+		"cerus-core": "0.0.2",
+		"del": "^3.0.0",
+		"ejs": "^2.5.7",
+		"highlight.js": "^9.12.0",
+		"marked": "^0.3.7",
+		"nodejs-fs-utils": "^1.0.26"
+	}
+}
