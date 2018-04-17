@@ -1,0 +1,11 @@
+<div class="source">
+	<h1><%- data.name %></h1>
+	<div class="lines">
+		<% data.source.forEach((x, i) => { _%>
+			<div class="line" id="line<%- i + 1 %>">
+				<div class="number"><%- i + 1 %>.</div>
+				<pre class="content"><%- x %></pre>
+			</div>
+		<% }); _%>
+	</div>
+</div>
