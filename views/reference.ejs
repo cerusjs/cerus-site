@@ -356,7 +356,7 @@
 						<h3>Returns</h3>
 						<div class="item">
 							<div class="key">Type</div>
-							<div class="value"><%- x.return.type %></div>
+							<div class="value"><%- (typeof x.return.type === "string") ? x.return.type : x.return.type.join(", ") %></div>
 						</div>
 						<div class="item">
 							<div class="key">Description</div>
