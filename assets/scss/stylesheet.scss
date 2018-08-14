@@ -263,7 +263,7 @@ body {
 		}
 
 		pre {
-			margin: 0 0 15px 0;
+			margin: 0;
 		}
 
 		.table {
@@ -565,11 +565,11 @@ body {
 				margin-bottom: 32px;
 
 				.line {
-					display: flex;
 					font-size: 14px;
 					font-family: monospace;
 					line-height: 18px;
 					height: 18px;
+					display: flex;
 
 					.number {
 						@include non-selectable;
@@ -583,9 +583,7 @@ body {
 
 					.content {
 						border-left: 3px solid $secondary-color;
-						padding-left: 10px;
-						max-width: 5000px;
-						width: 100%;
+						padding: 0 10px;
 						flex-shrink: 0;
 						background: $tertiary-color;
 						color: #abb2bf;
