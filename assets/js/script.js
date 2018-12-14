@@ -16,7 +16,6 @@ var sidebar = function() {
 
 		if(sidebar === undefined || content === undefined || overlay === undefined) {
 			throw new TypeError("there was a block that couldn't be found");
-			return;
 		}
 
 		if(sidebar.className.endsWith("opened")) {
@@ -42,15 +41,28 @@ var sidebar = function() {
 
 		if(item === undefined) {
 			throw new TypeError("the specified item wasn't found");
-			return;
 		}
 
 		var button = item.getElementsByClassName("fas")[0];
 
 		if(button === undefined) {
 			throw new TypeError("there was a block that couldn't be found");
-			return;
 		}
+
+		let items = document.getElementsByClassName("sidebar")[0].getElementsByClassName("item");
+
+		console.log(items);
+
+		Array.from(items).forEach(sidebar_item => {
+			if(item === sidebar_item) {
+				return;
+			}
+
+			let button = sidebar_item.getElementsByClassName("fas")[0];
+
+			sidebar_item.className = "item closed";
+			button.className = "fas fa-plus";
+		});
 
 		if(item.className.endsWith("closed")) {
 			item.className = "item opened";
