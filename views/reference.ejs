@@ -7,12 +7,13 @@
 			<% } else { _%>
 				<%- "." + data.name.replace(/\./g, "().") + "(" + data.params.filter(y => !y.child).map(y => y.name).join(", ") + ")" %>
 			<% } _%>
+			<i class="fas fa-link"></i>
 		</div>
 		<div class="list">
 			<div class="item">
 				<div class="key">Source:</div>
 				<div class="value">
-					<a href="<%- '/views/' + data.module + '/source/' + data.source %>"><%- data.o_file %></a>, 
+					<a href="<%- '/views/' + data.module + '/source/' + data.source %>"><%- data.source_path %></a>, 
 					<a href="<%- '/views/' + data.module + '/source/' + data.source + '#line' + data.line %>">Line <%- data.line %></a>
 				</div>
 			</div>
@@ -133,238 +134,243 @@
 	</div>
 
 	<!-- SUMMARY -->
-	<div class="summary">
-		<h2>Summary</h2>
-		<div class="table">
-			<div class="row head">
-				<div class="col a4">Name</div>
-				<div class="col a8">Description</div>
-			</div>
-			<% data.functions.forEach(x => { _%>
-				<div class="row">
-					<div class="col a4">
-						<a href="<%- '/views/' + data.module + '/reference/' + data.file + '#' + x.name %>"><%- x.name %></a>
-					</div>
-					<div class="col a8"><%- x.summary || x.description %></div>
+	<% if(data.functions.length > 0) { _%>
+		<div class="summary">
+			<h2>Summary</h2>
+			<div class="table">
+				<div class="row head">
+					<div class="col a4">Name</div>
+					<div class="col a8">Description</div>
 				</div>
-			<% }); _%>
+				<% data.functions.forEach(x => { _%>
+					<div class="row">
+						<div class="col a4">
+							<a href="<%- '/views/' + data.module + '/reference/' + data.file + '#' + x.name %>"><%- x.name %></a>
+						</div>
+						<div class="col a8"><%- x.summary || x.description %></div>
+					</div>
+				<% }); _%>
+			</div>
 		</div>
-	</div>
+	<% } _%>
 
 	<!-- FUNCTIONS -->
-	<div class="functions">
-		<h2>Functions</h2>
-		<% data.functions.forEach(x => { _%>
-			<div id="<%- x.name %>" class="function">
-				<div class="name<% if(x.deprecated) { %><%- ' deprecated' %><% } %>">
-					<%- "." + x.name + "(" + x.params.filter(y => !y.child).map(y => y.name).join(", ") + ")" %>
-				</div>
-				<div class="list">
-					<div class="item">
-						<div class="key">Source:</div>
-						<div class="value">
-							<a href="<%- '/views/' + data.module + '/source/' + data.source %>"><%- x.file %></a>, 
-							<a href="<%- '/views/' + data.module + '/source/' + data.source + '#line' + x.line %>">Line <%- x.line %></a>
-						</div>
-					</div>
-					<% if(x.async || x.static || x.generator || x.readonly || x.yields) { _%>
+	<% if(data.functions.length > 0) { _%>
+		<div class="functions">
+			<h2>Functions</h2>
+			<% data.functions.forEach(x => { _%>
+				<div id="<%- x.name %>" class="function">
+					<a class="name<% if(x.deprecated) { %><%- ' deprecated' %><% } %>" href="#<%- x.name %>">
+						<%- "." + x.name + "(" + x.params.filter(y => !y.child).map(y => y.name).join(", ") + ")" %>
+						<i class="fas fa-link"></i>
+					</a>
+					<div class="list">
 						<div class="item">
-							<div class="key">Modifiers:</div>
+							<div class="key">Source:</div>
 							<div class="value">
-								<% 
-									var modifiers = [];
+								<a href="<%- '/views/' + data.module + '/source/' + data.source %>"><%- x.file %></a>, 
+								<a href="<%- '/views/' + data.module + '/source/' + data.source + '#line' + x.line %>">Line <%- x.line %></a>
+							</div>
+						</div>
+						<% if(x.async || x.static || x.generator || x.readonly || x.yields) { _%>
+							<div class="item">
+								<div class="key">Modifiers:</div>
+								<div class="value">
+									<% 
+										var modifiers = [];
 
-									if(x.async) {
-										modifiers.push("async");
-									}
-									if(x.static) {
-										modifiers.push("static");
-									}
-									if(x.generator) {
-										modifiers.push("generator");
-									}
-									if(x.readonly) {
-										modifiers.push("readonly");
-									}
-									if(x.yields) {
-										modifiers.push("yields");
-									}
+										if(x.async) {
+											modifiers.push("async");
+										}
+										if(x.static) {
+											modifiers.push("static");
+										}
+										if(x.generator) {
+											modifiers.push("generator");
+										}
+										if(x.readonly) {
+											modifiers.push("readonly");
+										}
+										if(x.yields) {
+											modifiers.push("yields");
+										}
 
-									modifiers = modifiers.join(", ");
-								_%><%- modifiers %>
+										modifiers = modifiers.join(", ");
+									_%><%- modifiers %>
+								</div>
+							</div>
+						<% } _%>
+						<% if(x.links && x.links.length > 0) { _%>
+							<div class="item">
+								<div class="key">See:</div>
+								<div class="value"><%- x.links.join(", ") %></div>
+							</div>
+						<% } _%>
+						<% if(x.aliases && x.aliases.length > 0) { _%>
+							<div class="item">
+								<div class="key">Aliases:</div>
+								<div class="value"><%- x.aliases.join(", ") %></div>
+							</div>
+						<% } _%>
+						<div class="item">
+							<div class="key">Access:</div>
+							<div class="value"><%- x.access %></div>
+						</div>
+						<% if(x.author) { _%>
+							<div class="item">
+								<div class="key">Author:</div>
+								<div class="value"><%- x.author %></div>
+							</div>
+						<% } _%>
+						<% if(x.default) { _%>
+							<div class="item">
+								<div class="key">Default:</div>
+								<div class="value"><%- x.default %></div>
+							</div>
+						<% } _%>
+						<% if(x.copyright) { _%>
+							<div class="item">
+								<div class="key">Copyright:</div>
+								<div class="value"><%- x.copyright %></div>
+							</div>
+						<% } _%>
+						<% if(x.since) { _%>
+							<div class="item">
+								<div class="key">Since:</div>
+								<div class="value"><%- x.since %></div>
+							</div>
+						<% } _%>
+						<% if(x.date) { _%>
+							<div class="item">
+								<div class="key">Date:</div>
+								<div class="value"><%- x.date %></div>
+							</div>
+						<% } _%>
+						<% if(x.license) { _%>
+							<div class="item">
+								<div class="key">License:</div>
+								<div class="value"><%- x.license %></div>
+							</div>
+						<% } _%>
+						<% if(x.version) { _%>
+							<div class="item">
+								<div class="key">Version:</div>
+								<div class="value"><%- x.version %></div>
+							</div>
+						<% } _%>
+						<% if(x.summary) { _%>
+							<div class="item">
+								<div class="key">Summary:</div>
+								<div class="value"><%- x.summary %></div>
+							</div>
+						<% } _%>
+						<% if(x.todo) { _%>
+							<div class="item">
+								<div class="key">Todo:</div>
+								<div class="value"><%- x.todo %></div>
+							</div>
+						<% } _%>
+						<% if(x.override) { _%>
+							<div class="item">
+								<div class="key">Override:</div>
+								<div class="value"><%- x.override %></div>
+							</div>
+						<% } _%>
+					</div>
+					<div class="desc"><%- x.description %></div>
+					<% if(x.params && x.params.length > 0) { _%>
+						<div class="params">
+							<h3>Parameters</h3>
+							<div class="table params">
+								<div class="row head">
+									<div class="col a3">Name</div>
+									<div class="col a3">Type</div>
+									<div class="col a6">Description</div>
+								</div>
+								<% x.params.forEach(y => { _%>
+									<div class="row">
+										<div class="col a3"><%- y.name %></div>
+										<div class="col a3"><%- (typeof y.type === "string") ? y.type : y.type.join(", ") %></div>
+										<div class="col a6"><span>
+											<% 
+												var description = y.description.trim();
+
+												if(y.optional) {
+													description += " (optional)";
+												}
+												if(y.child) {
+													description += " (child)";
+												}
+												if(y.array) {
+													description += " (array)";
+												}
+												if(y.default) {
+													description += " (default: " + y.default + ")";
+												}
+											_%><%- description %>
+										</span></div>
+									</div>
+								<% }); _%>
 							</div>
 						</div>
 					<% } _%>
-					<% if(x.links && x.links.length > 0) { _%>
-						<div class="item">
-							<div class="key">See:</div>
-							<div class="value"><%- x.links.join(", ") %></div>
+					<% if(x.examples && x.examples.length > 0) { _%>
+						<div class="examples">
+							<h3>Examples</h3>
+							<% x.examples.forEach(y => { _%>
+								<div class="example"><%- y %></div>
+							<% }); _%>
 						</div>
 					<% } _%>
-					<% if(x.aliases && x.aliases.length > 0) { _%>
-						<div class="item">
-							<div class="key">Aliases:</div>
-							<div class="value"><%- x.aliases.join(", ") %></div>
+					<% if(x.throws && x.throws.length > 0) { _%>
+						<div class="throws">
+							<h3>Throws</h3>
+							<div class="table">
+								<div class="row head">
+									<div class="col a3">Error</div>
+									<div class="col a9">Description</div>
+								</div>
+								<% x.throws.forEach(y => { _%>
+									<div class="row">
+										<div class="col a3"><%- y.type %></div>
+										<div class="col a9"><%- y.description %></div>
+									</div>
+								<% }); _%>
+							</div>
 						</div>
 					<% } _%>
-					<div class="item">
-						<div class="key">Access:</div>
-						<div class="value"><%- x.access %></div>
-					</div>
-					<% if(x.author) { _%>
-						<div class="item">
-							<div class="key">Author:</div>
-							<div class="value"><%- x.author %></div>
+					<% if(x.emits && x.emits.length > 0) { _%>
+						<div class="emits">
+							<h3>Emits</h3>
+							<div class="table">
+								<div class="row head">
+									<div class="col a3">Event</div>
+									<div class="col a9">Description</div>
+								</div>
+								<% x.emits.forEach(y => { _%>
+									<div class="row">
+										<div class="col a3"><%- y.event %></div>
+										<div class="col a9"><%- y.description %></div>
+									</div>
+								<% }); _%>
+							</div>
 						</div>
 					<% } _%>
-					<% if(x.default) { _%>
-						<div class="item">
-							<div class="key">Default:</div>
-							<div class="value"><%- x.default %></div>
-						</div>
-					<% } _%>
-					<% if(x.copyright) { _%>
-						<div class="item">
-							<div class="key">Copyright:</div>
-							<div class="value"><%- x.copyright %></div>
-						</div>
-					<% } _%>
-					<% if(x.since) { _%>
-						<div class="item">
-							<div class="key">Since:</div>
-							<div class="value"><%- x.since %></div>
-						</div>
-					<% } _%>
-					<% if(x.date) { _%>
-						<div class="item">
-							<div class="key">Date:</div>
-							<div class="value"><%- x.date %></div>
-						</div>
-					<% } _%>
-					<% if(x.license) { _%>
-						<div class="item">
-							<div class="key">License:</div>
-							<div class="value"><%- x.license %></div>
-						</div>
-					<% } _%>
-					<% if(x.version) { _%>
-						<div class="item">
-							<div class="key">Version:</div>
-							<div class="value"><%- x.version %></div>
-						</div>
-					<% } _%>
-					<% if(x.summary) { _%>
-						<div class="item">
-							<div class="key">Summary:</div>
-							<div class="value"><%- x.summary %></div>
-						</div>
-					<% } _%>
-					<% if(x.todo) { _%>
-						<div class="item">
-							<div class="key">Todo:</div>
-							<div class="value"><%- x.todo %></div>
-						</div>
-					<% } _%>
-					<% if(x.override) { _%>
-						<div class="item">
-							<div class="key">Override:</div>
-							<div class="value"><%- x.override %></div>
+					<% if(x.return && x.return.type) { _%>
+						<div class="return">
+							<h3>Returns</h3>
+							<div class="item">
+								<div class="key">Type</div>
+								<div class="value"><%- (typeof x.return.type === "string") ? x.return.type : x.return.type.join(", ") %></div>
+							</div>
+							<div class="item">
+								<div class="key">Description</div>
+								<div class="value"><%- x.return.description %></div>
+							</div>
 						</div>
 					<% } _%>
 				</div>
-				<div class="desc"><%- x.description %></div>
-				<% if(x.params && x.params.length > 0) { _%>
-					<div class="params">
-						<h3>Parameters</h3>
-						<div class="table params">
-							<div class="row head">
-								<div class="col a3">Name</div>
-								<div class="col a3">Type</div>
-								<div class="col a6">Description</div>
-							</div>
-							<% x.params.forEach(y => { _%>
-								<div class="row">
-									<div class="col a3"><%- y.name %></div>
-									<div class="col a3"><%- (typeof y.type === "string") ? y.type : y.type.join(", ") %></div>
-									<div class="col a6"><span>
-										<% 
-											var description = y.description.trim();
-
-											if(y.optional) {
-												description += " (optional)";
-											}
-											if(y.child) {
-												description += " (child)";
-											}
-											if(y.array) {
-												description += " (array)";
-											}
-											if(y.default) {
-												description += " (default: " + y.default + ")";
-											}
-										_%><%- description %>
-									</span></div>
-								</div>
-							<% }); _%>
-						</div>
-					</div>
-				<% } _%>
-				<% if(x.examples && x.examples.length > 0) { _%>
-					<div class="examples">
-						<h3>Examples</h3>
-						<% x.examples.forEach(y => { _%>
-							<div class="example"><%- y %></div>
-						<% }); _%>
-					</div>
-				<% } _%>
-				<% if(x.throws && x.throws.length > 0) { _%>
-					<div class="throws">
-						<h3>Throws</h3>
-						<div class="table">
-							<div class="row head">
-								<div class="col a3">Error</div>
-								<div class="col a9">Description</div>
-							</div>
-							<% x.throws.forEach(y => { _%>
-								<div class="row">
-									<div class="col a3"><%- y.type %></div>
-									<div class="col a9"><%- y.description %></div>
-								</div>
-							<% }); _%>
-						</div>
-					</div>
-				<% } _%>
-				<% if(x.emits && x.emits.length > 0) { _%>
-					<div class="emits">
-						<h3>Emits</h3>
-						<div class="table">
-							<div class="row head">
-								<div class="col a3">Event</div>
-								<div class="col a9">Description</div>
-							</div>
-							<% x.emits.forEach(y => { _%>
-								<div class="row">
-									<div class="col a3"><%- y.event %></div>
-									<div class="col a9"><%- y.description %></div>
-								</div>
-							<% }); _%>
-						</div>
-					</div>
-				<% } _%>
-				<% if(x.return && x.return.type) { _%>
-					<div class="return">
-						<h3>Returns</h3>
-						<div class="item">
-							<div class="key">Type</div>
-							<div class="value"><%- (typeof x.return.type === "string") ? x.return.type : x.return.type.join(", ") %></div>
-						</div>
-						<div class="item">
-							<div class="key">Description</div>
-							<div class="value"><%- x.return.description %></div>
-						</div>
-					</div>
-				<% } _%>
-			</div>
-		<% }); %>
-	</div>
+			<% }); %>
+		</div>
+	<% } _%>
 </div>
